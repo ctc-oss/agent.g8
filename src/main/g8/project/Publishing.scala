@@ -22,7 +22,7 @@ object ArtifactoryPublish extends AutoPlugin {
     credentials += Credentials("Artifactory Realm", host, user, pass),
     publishTo := {
       val targetRepo = if (isSnapshot.value) "snapshot" else "release"
-      Some("Artifactory Realm" at s"https://$host/libs-$targetRepo-local")
+      Some("Artifactory Realm" at s"https://\$host/libs-\$targetRepo-local")
     },
     publishArtifact := true,
     publishMavenStyle := true
