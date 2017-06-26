@@ -1,41 +1,41 @@
 
-lazy val `$name;format="norm"$` =
+lazy val `$name;format="norm"$-agent` =
   project.in(file("."))
   .aggregate(
-    `$name;format="norm"$-api`,
-    `$name;format="norm"$-impl`,
-    `$name;format="norm"$-dsl`
+    `$name;format="norm"$-agent-api`,
+    `$name;format="norm"$-agent-impl`,
+    `$name;format="norm"$-agent-dsl`
   )
   .settings(commonSettings: _*)
   .enablePlugins(GitVersioning, NoPublish)
 
-lazy val `$name;format="norm"$-api` =
-  project.in(file("$name;format="norm"$-api"))
+lazy val `$name;format="norm"$-agent-api` =
+  project.in(file("$name;format="norm"$-agent-api"))
   .settings(commonSettings: _*)
   .settings(
-    name := "$name;format="norm"$-api",
+    name := "$name;format="norm"$-agent-api",
     libraryDependencies ++= commonLibraries
   )
   .enablePlugins(JavaServerAppPackaging, DockerPlugin, GitVersioning, ArtifactoryPublish)
   .settings(dockerSettings: _*)
 
-lazy val `$name;format="norm"$-impl` =
-  project.in(file("$name;format="norm"$-impl"))
-  .dependsOn(`$name;format="norm"$-api`)
+lazy val `$name;format="norm"$-agent-impl` =
+  project.in(file("$name;format="norm"$-agent-impl"))
+  .dependsOn(`$name;format="norm"$-agent-api`)
   .settings(commonSettings: _*)
   .settings(
-    name := "$name;format="norm"$",
+    name := "$name;format="norm"$-agent",
     libraryDependencies ++= commonLibraries
   )
   .enablePlugins(JavaServerAppPackaging, DockerPlugin, GitVersioning, NoPublish)
   .settings(dockerSettings: _*)
 
-lazy val `$name;format="norm"$-dsl` =
-  project.in(file("$name;format="norm"$-dsl"))
-  .dependsOn(`$name;format="norm"$-api`)
+lazy val `$name;format="norm"$-agent-dsl` =
+  project.in(file("$name;format="norm"$-agent-dsl"))
+  .dependsOn(`$name;format="norm"$-agent-api`)
   .settings(commonSettings: _*)
   .settings(
-    name := "$name;format="norm"$-dsl",
+    name := "$name;format="norm"$-agent-dsl",
     publishArtifact in packageDoc := false
   )
   .settings(
@@ -115,7 +115,7 @@ lazy val antlrLibraries = {
 }
 
 lazy val dockerSettings = Seq(
-  packageName := "$name;format="norm"$",
+  packageName := "$name;format="norm"$-agent",
   dockerExposedPorts := Seq(9000),
   dockerRepository := Some("docker.ctc.com/big"),
   dockerBaseImage := "davidcaste/debian-oracle-java:jdk8",
