@@ -21,7 +21,7 @@ lazy val `$name;format="norm"$-agent-api` =
 
 lazy val `$name;format="norm"$-agent-impl` =
   project.in(file("$name;format="norm"$-agent-impl"))
-  .dependsOn(`$name;format="norm"$-agent-api`)
+  .dependsOn(`$name;format="norm"$-agent-api`, `$name;format="norm"$-agent-dsl`)
   .settings(commonSettings: _*)
   .settings(
     name := "$name;format="norm"$-agent",
