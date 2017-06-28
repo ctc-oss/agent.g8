@@ -16,18 +16,22 @@ lazy val `$name;format="norm"$-agent-api` =
     name := "$name;format="norm"$-agent-api",
     libraryDependencies ++= commonLibraries
   )
-  .enablePlugins(JavaServerAppPackaging, DockerPlugin, GitVersioning, ArtifactoryPublish)
+  .enablePlugins(GitVersioning, ArtifactoryPublish)
   .settings(dockerSettings: _*)
 
 lazy val `$name;format="norm"$-agent-impl` =
   project.in(file("$name;format="norm"$-agent-impl"))
-  .dependsOn(`$name;format="norm"$-agent-api`, `$name;format="norm"$-agent-dsl`)
+  .dependsOn(
+    `$name;format="norm"$-agent-api`,
+    `$name;format="norm"$-agent-dsl`
+  )
   .settings(commonSettings: _*)
   .settings(
     name := "$name;format="norm"$-agent",
+    version in Docker := "latest",
     libraryDependencies ++= commonLibraries
   )
-  .enablePlugins(JavaServerAppPackaging, DockerPlugin, GitVersioning, NoPublish)
+  .enablePlugins(JavaServerAppPackaging, OpenShiftPlugin, GitVersioning, NoPublish)
   .settings(dockerSettings: _*)
 
 lazy val `$name;format="norm"$-agent-dsl` =
@@ -36,6 +40,7 @@ lazy val `$name;format="norm"$-agent-dsl` =
   .settings(commonSettings: _*)
   .settings(
     name := "$name;format="norm"$-agent-dsl",
+    version in Docker := "dsl",
     publishArtifact in packageDoc := false
   )
   .settings(
@@ -44,7 +49,25 @@ lazy val `$name;format="norm"$-agent-dsl` =
       ++ antlrLibraries
   )
   .settings(antlrSettings: _*)
-  .enablePlugins(JavaServerAppPackaging, DockerPlugin, GitVersioning, NoPublish)
+  .enablePlugins(JavaServerAppPackaging, OpenShiftPlugin, GitVersioning, NoPublish)
+  .settings(dockerSettings: _*)
+
+lazy val `$name;format="norm"$-agent-cluster` =
+  project.in(file("$name;format="norm"$-agent-cluster"))
+  .dependsOn(
+    `$name;format="norm"$-agent-api`,
+    `$name;format="norm"$-agent-dsl`,
+    `$name;format="norm"$-agent-impl`
+  )
+  .settings(commonSettings: _*)
+  .settings(
+    name := "$name;format="norm"$-agent-cluster",
+    version in Docker := "cluster",
+    libraryDependencies
+      ++= commonLibraries
+      ++ clusterLibraries
+  )
+  .enablePlugins(JavaServerAppPackaging, OpenShiftPlugin, GitVersioning, NoPublish)
   .settings(dockerSettings: _*)
 
 /**
@@ -97,6 +120,9 @@ lazy val commonLibraries = {
     "com.typesafe.akka" %% "akka-http-core" % akkaHttpVersion,
     "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
 
+    "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+    "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
+
     "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
     "ch.qos.logback" % "logback-classic" % "1.2.3",
     "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
@@ -114,13 +140,17 @@ lazy val antlrLibraries = {
   )
 }
 
+lazy val clusterLibraries = {
+  Seq(
+    "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
+    "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion
+  )
+}
+
 lazy val dockerSettings = Seq(
-  packageName := "$name;format="norm"$-agent",
+  packageName in Docker:= "$name;format="norm"$-agent",
   dockerExposedPorts := Seq(9000),
-  dockerRepository := Some("docker.ctc.com/big"),
-  dockerBaseImage := "davidcaste/debian-oracle-java:jdk8",
-  version in Docker := version.value.replaceFirst("""-SNAPSHOT""", ""),
-  dockerUpdateLatest := true
+  dockerRepository := Some("docker.ctc.com/big")
 )
 
 lazy val antlrSettings = antlr4Settings ++ Seq(
