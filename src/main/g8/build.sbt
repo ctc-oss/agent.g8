@@ -17,7 +17,6 @@ lazy val `$name;format="norm"$-agent-api` =
     libraryDependencies ++= commonLibraries
   )
   .enablePlugins(GitVersioning, ArtifactoryPlugin)
-  .settings(dockerSettings: _*)
 
 lazy val `$name;format="norm"$-agent-impl` =
   project.in(file("$name;format="norm"$-agent-impl"))
