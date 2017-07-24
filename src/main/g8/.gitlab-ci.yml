@@ -38,6 +38,8 @@ docker_branch:
   - sbt docker:publishLocal
   - docker tag \$CI_REGISTRY_IMAGE \$CI_REGISTRY_IMAGE:\$CI_BUILD_REF_NAME
   - docker push \$CI_REGISTRY_IMAGE:\$CI_BUILD_REF_NAME
+
+  - docker rmi \$CI_REGISTRY_IMAGE
   - docker rmi \$CI_REGISTRY_IMAGE:\$CI_BUILD_REF_NAME
   only:
   - branches
