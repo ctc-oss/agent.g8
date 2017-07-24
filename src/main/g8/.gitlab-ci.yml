@@ -15,14 +15,14 @@ unit_test:
 publish_snapshots:
   stage: publish
   script:
-  - sbt publish
+  - sbt publishArtifacts
   only:
   - master
 
 publish_releases:
   stage: publish
   script:
-  - sbt publish
+  - sbt publishArtifacts
   only:
   - tags
   only:
