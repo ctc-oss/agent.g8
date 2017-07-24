@@ -105,8 +105,8 @@ lazy val rxKafkaVersion = "0.16"
 
 lazy val commonLibraries = {
   Seq(
-    "com.ctc.reactivechat" %% "api" % "0.1",
-    "com.ctc.reactivechat" %% "core" % "0.1",
+    "com.ctc.reactivechat" %% "api" % "0.2",
+    "com.ctc.reactivechat" %% "core" % "0.2",
 
     "com.iheart" %% "ficus" % "1.4.0",
     "io.spray" %% "spray-json" % "1.3.3",
