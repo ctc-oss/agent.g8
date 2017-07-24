@@ -119,9 +119,6 @@ lazy val commonLibraries = {
     "com.typesafe.akka" %% "akka-http-core" % akkaHttpVersion,
     "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
 
-    "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
-    "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
-
     "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
     "ch.qos.logback" % "logback-classic" % "1.2.3",
     "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
