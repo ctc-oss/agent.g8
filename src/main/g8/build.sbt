@@ -4,7 +4,8 @@ lazy val `$name;format="norm"$-agent` =
   .aggregate(
     `$name;format="norm"$-agent-api`,
     `$name;format="norm"$-agent-impl`,
-    `$name;format="norm"$-agent-dsl`
+    `$name;format="norm"$-agent-dsl`,
+    `$name;format="norm"$-agent-cluster`
   )
   .settings(commonSettings: _*)
   .enablePlugins(GitVersioning)
@@ -30,7 +31,7 @@ lazy val `$name;format="norm"$-agent-impl` =
     version in Docker := "latest",
     libraryDependencies ++= commonLibraries
   )
-  .enablePlugins(JavaServerAppPackaging, OpenShiftPlugin, GitVersioning)
+  .enablePlugins(GitVersioning, JavaServerAppPackaging, OpenShiftPlugin)
   .settings(dockerSettings: _*)
 
 lazy val `$name;format="norm"$-agent-dsl` =
@@ -48,7 +49,7 @@ lazy val `$name;format="norm"$-agent-dsl` =
       ++ antlrLibraries
   )
   .settings(antlrSettings: _*)
-  .enablePlugins(JavaServerAppPackaging, OpenShiftPlugin, GitVersioning)
+  .enablePlugins(GitVersioning, JavaServerAppPackaging, OpenShiftPlugin)
   .settings(dockerSettings: _*)
 
 lazy val `$name;format="norm"$-agent-cluster` =
@@ -66,7 +67,7 @@ lazy val `$name;format="norm"$-agent-cluster` =
       ++= commonLibraries
       ++ clusterLibraries
   )
-  .enablePlugins(JavaServerAppPackaging, OpenShiftPlugin, GitVersioning)
+  .enablePlugins(GitVersioning, JavaServerAppPackaging, OpenShiftPlugin)
   .settings(dockerSettings: _*)
 
 /**
