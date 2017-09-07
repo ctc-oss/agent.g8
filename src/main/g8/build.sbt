@@ -103,11 +103,12 @@ lazy val akkaVersion = "2.5.2"
 lazy val akkaHttpVersion = "10.0.7"
 lazy val scalatestVersion = "3.0.3"
 lazy val rxKafkaVersion = "0.16"
+lazy val avaVersion = "0.5.2"
 
 lazy val commonLibraries = {
   Seq(
-    "com.ctc.reactivechat" %% "api" % "0.2",
-    "com.ctc.reactivechat" %% "core" % "0.2",
+    "com.ctc.ava" %% "api" % avaVersion,
+    "com.ctc.ava" %% "core" % avaVersion,
 
     "com.iheart" %% "ficus" % "1.4.0",
     "io.spray" %% "spray-json" % "1.3.3",
@@ -127,7 +128,8 @@ lazy val commonLibraries = {
     "org.scalactic" %% "scalactic" % scalatestVersion % Test,
     "org.scalatest" %% "scalatest" % scalatestVersion % Test,
     "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
-    "net.manub" %% "scalatest-embedded-kafka" % "0.13.1" % Test
+    "net.manub" %% "scalatest-embedded-kafka" % "0.13.1" % Test,
+    "com.ctc.ava" %% "core" % avaVersion % Test classifier "tests"
   )
 }
 
