@@ -10,7 +10,7 @@ unit_test:
 #  - sbt compile
 #  - unset JAVA_OPTS http_proxy https_proxy
 #  - sbt coverage test
-  - sbt test
+  - sbt scalafmt::test test:scalafmt::test test
 
 publish_snapshots:
   stage: publish
