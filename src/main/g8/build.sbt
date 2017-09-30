@@ -151,7 +151,7 @@ lazy val clusterLibraries = {
 }
 
 lazy val dockerSettings = Seq(
-  packageName in Docker:= "$name;format="norm"$-agent",
+  packageName in Docker:= "agent-$name;format="norm"$",
   dockerExposedPorts := Seq(9000),
   dockerRepository := Some("docker.ctc.com/big")
 )
