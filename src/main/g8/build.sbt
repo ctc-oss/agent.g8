@@ -96,7 +96,11 @@ lazy val commonSettings = Seq(
     "-Xfatal-warnings",
     "-Xlint:_"
   ),
-  concurrentRestrictions in Global += Tags.limit(Tags.Test, 1)
+  concurrentRestrictions in Global += Tags.limit(Tags.Test, 1),
+
+  headerLicense := Some(HeaderLicense.Custom(
+    "©Concurrent Technologies Corporation 2017"
+  ))
 )
 
 lazy val akkaVersion = "2.5.2"

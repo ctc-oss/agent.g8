@@ -9,8 +9,9 @@ unit_test:
   script:
 #  - sbt compile
 #  - unset JAVA_OPTS http_proxy https_proxy
-#  - sbt coverage test
-  - sbt scalafmt::test test:scalafmt::test test
+  - sbt headerCheck
+  - sbt coverage test coverageReport
+  - sbt coverageAggregate
 
 publish_snapshots:
   stage: publish
